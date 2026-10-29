@@ -2,6 +2,12 @@
 
 App Android para llevar el control de entrenamientos, rutinas, caminatas, senderismo y mediciones corporales, con gráficos de evolución y estadísticas. Funciona **100 % offline** y en español.
 
+<p align="center">
+  <a href="https://github.com/MatiasSpacech/RutinaDiaria/releases/download/v1.0.0/RutinaDiaria-v1.0.0.apk">
+    <img src="https://img.shields.io/badge/Descargar_APK-v1.0.0-C8F542?style=for-the-badge&logo=android&logoColor=0B0F14" alt="Descargar APK para Android">
+  </a>
+</p>
+
 ![Inicio](docs/screenshots/inicio.png)
 
 ## Funcionalidades
@@ -36,6 +42,12 @@ App Android para llevar el control de entrenamientos, rutinas, caminatas, sender
 - **react-native-gifted-charts** y **react-native-svg** para gráficos.
 - **expo-audio**, **expo-haptics** y **expo-keep-awake** para el entrenamiento por tiempo.
 - **Jest + jest-expo** para tests de lógica.
+
+## Descargar la APK
+
+[Descargar RutinaDiaria v1.0.0 para Android](https://github.com/MatiasSpacech/RutinaDiaria/releases/download/v1.0.0/RutinaDiaria-v1.0.0.apk)
+
+También está disponible en [GitHub Releases](https://github.com/MatiasSpacech/RutinaDiaria/releases/tag/v1.0.0). Es un APK universal firmado con clave de depuración: para instalarlo hay que habilitar la instalación desde orígenes desconocidos. Para publicar en Play Store se necesita una keystore de producción.
 
 ## Ejecutar el proyecto
 
