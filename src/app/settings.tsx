@@ -1,7 +1,8 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import { router } from 'expo-router';
-import { StyleSheet, View } from 'react-native';
+import { useState } from 'react';
+import { Alert, StyleSheet, View } from 'react-native';
 
 import {
   AppText,
@@ -13,7 +14,9 @@ import {
   SectionHeader,
   SegmentedControl,
 } from '@/components';
-import { updateProfile } from '@/db/repositories/profile';
+import { exportBackup } from '@/db/repositories/backup';
+import { resetAllData } from '@/db/repositories/maintenance';
+import { getProfile, updateProfile } from '@/db/repositories/profile';
 import { calculateAge, cmToIn, formatWeight, weightUnit } from '@/domain/calculations';
 import { useAppStore } from '@/store/app';
 import { useSettingsStore, type ThemePreference, type UnitSystem } from '@/store/settings';
@@ -39,6 +42,7 @@ export default function SettingsScreen() {
   const setUnitSystem = useSettingsStore((state) => state.setUnitSystem);
   const profile = useAppStore((state) => state.profile);
   const setProfile = useAppStore((state) => state.setProfile);
+  const [exporting, setExporting] = useState(false);
 
   function handleThemeChange(preference: ThemePreference) {
     setThemePreference(preference);
@@ -50,6 +54,41 @@ export default function SettingsScreen() {
     setUnitSystem(system);
     const updated = updateProfile({ unitSystem: system });
     setProfile(updated);
+  }
+
+  async function handleExport() {
+    setExporting(true);
+    try {
+      await exportBackup();
+    } catch (error) {
+      Alert.alert(
+        'No se pudo exportar',
+        error instanceof Error ? error.message : 'Intentá nuevamente.',
+      );
+    } finally {
+      setExporting(false);
+    }
+  }
+
+  function handleReset() {
+    Alert.alert(
+      'Borrar todos los datos',
+      'Se van a eliminar tu perfil, mediciones, actividades y rutinas. Esta acción no se puede deshacer.',
+      [
+        { text: 'Cancelar', style: 'cancel' },
+        {
+          text: 'Borrar todo',
+          style: 'destructive',
+          onPress: () => {
+            resetAllData();
+            setThemePreference('system');
+            setUnitSystem('metric');
+            setProfile(getProfile());
+            router.replace('/onboarding');
+          },
+        },
+      ],
+    );
   }
 
   const age = profile ? calculateAge(profile.birthDate) : null;
@@ -133,6 +172,45 @@ export default function SettingsScreen() {
             {unitSystem === 'metric'
               ? 'Peso en kilogramos, distancias en kilómetros y medidas en centímetros.'
               : 'Peso en libras, distancias en millas y medidas en pulgadas.'}
+          </AppText>
+        </Card>
+      </View>
+
+      <View style={styles.section}>
+        <SectionHeader title="Datos" />
+        <Card style={styles.card}>
+          <Button
+            label="Exportar backup JSON"
+            variant="secondary"
+            onPress={handleExport}
+            loading={exporting}
+            icon={
+              <MaterialCommunityIcons
+                name="download-outline"
+                size={18}
+                color={colors.text}
+              />
+            }
+          />
+          <AppText variant="caption" color="textSecondary">
+            Genera un archivo con tu perfil, rutinas, actividades y mediciones para
+            guardarlo o compartirlo.
+          </AppText>
+          <Divider />
+          <Button
+            label="Borrar todos los datos"
+            variant="danger"
+            onPress={handleReset}
+            icon={
+              <MaterialCommunityIcons
+                name="delete-outline"
+                size={18}
+                color="#FFFFFF"
+              />
+            }
+          />
+          <AppText variant="caption" color="textSecondary">
+            Elimina todo el contenido de la app y vuelve a empezar. No se puede deshacer.
           </AppText>
         </Card>
       </View>

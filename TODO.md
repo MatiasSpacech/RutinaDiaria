@@ -87,10 +87,10 @@ Lista detallada de implementación. Se marca cada punto al completarlo.
 
 ## Fase 7 — Ajustes, exportación y QA
 
-- [ ] Ajustes de unidades y tema.
-- [ ] Exportación de backup JSON mediante el selector de compartir.
-- [ ] Opción de borrar datos con confirmación.
-- [ ] Recorrido completo en emulador Android y corrección de hallazgos.
-- [ ] README con descripción, funcionalidades, capturas e instrucciones de ejecución.
-- [ ] Typecheck, lint y todos los tests en verde.
-- [ ] Commit y push final.
+- [x] Ajustes de unidades y tema.
+- [x] Exportación de backup JSON mediante el selector de compartir.
+- [x] Opción de borrar datos con confirmación.
+- [x] Recorrido completo en emulador Android y corrección de hallazgos.
+- [x] README con descripción, funcionalidades, capturas e instrucciones de ejecución.
+- [x] Typecheck, lint y todos los tests en verde.
+- [x] Commit y push final.

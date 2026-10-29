@@ -1,56 +1,92 @@
-# Welcome to your Expo app 👋
+# RutinaDiaria
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+App Android para llevar el control de entrenamientos, rutinas, caminatas, senderismo y mediciones corporales, con gráficos de evolución y estadísticas. Funciona **100 % offline** y en español.
 
-## Get started
+![Inicio](docs/screenshots/inicio.png)
 
-1. Install dependencies
+## Funcionalidades
 
-   ```bash
-   npm install
-   ```
+- **Perfil y objetivos:** altura, edad, sexo, nivel de actividad, peso objetivo, meta semanal de sesiones y unidades métricas o imperiales.
+- **Actividades:** fuerza con series de reps, peso y RPE; caminatas y senderismo con distancia, desnivel y terreno; cardio y otras actividades.
+- **Rutinas reutilizables:** plantillas por series y repeticiones, o **rutinas por tiempo** con rondas, preparación y descansos.
+- **Entrenamiento por tiempo:** cronómetro con anillo de progreso, pausa, salto de fase, +15 s, pitidos, vibración, pantalla encendida y guardado automático.
+- **Mediciones corporales:** peso, IMC con clasificación OMS, cintura, cadera, pecho, brazo, muslo, % de grasa y notas.
+- **Gráficos de evolución:** peso, IMC y medidas seleccionables, con rangos de 1 mes a todo el historial.
+- **Inicio:** resumen semanal, racha, meta semanal, último peso/IMC y actividad reciente.
+- **Progreso:** estadísticas de 8 semanas, heatmap de 12 semanas, distribución por tipo de actividad y récords personales con 1RM estimado (Epley).
+- **Datos:** backup JSON mediante el selector de compartir y opción de borrar todos los datos.
+- **Privacidad:** sin cuentas, sin nube y sin conexión; los datos se guardan en SQLite dentro del dispositivo.
 
-2. Start the app
+## Capturas
 
-   ```bash
-   npx expo start
-   ```
+| | | |
+| --- | --- | --- |
+| ![Inicio](docs/screenshots/inicio.png) | ![Entrenamiento](docs/screenshots/entrenamiento.png) | ![Rutina por tiempo](docs/screenshots/rutina-por-tiempo.png) |
+| Inicio | Entrenamiento de fuerza | Rutina por tiempo |
+| ![Medidas](docs/screenshots/medidas.png) | ![Progreso](docs/screenshots/progreso.png) | ![Resumen del timer](docs/screenshots/resumen-timer.png) |
+| Medidas y evolución | Progreso y récords | Resumen del timer |
 
-In the output, you'll find options to open the app in a
+## Stack
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- **Expo SDK 58** con **React Native** y **TypeScript**.
+- **expo-router** para navegación por pestañas y rutas apiladas.
+- **expo-sqlite** para persistencia local con migraciones.
+- **Zustand** para estado global.
+- **date-fns** para fechas y agregados.
+- **react-native-gifted-charts** y **react-native-svg** para gráficos.
+- **expo-audio**, **expo-haptics** y **expo-keep-awake** para el entrenamiento por tiempo.
+- **Jest + jest-expo** para tests de lógica.
 
-You can start developing by editing the files inside the **src/app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Ejecutar el proyecto
 
-## Get a fresh project
-
-When you're ready, run:
+Requisitos: Node.js 20 o superior y Android Studio con un emulador, o la app **Expo Go** en un teléfono.
 
 ```bash
-npm run reset-project
+npm install
+npx expo start
 ```
 
-This command will move the starter code to the **example** directory and create a blank **src/app** directory where you can start developing.
+Luego:
 
-### Other setup steps
+- escaneá el código QR con Expo Go, o
+- presioná `a` para abrir el emulador Android.
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+### Scripts
 
-## Learn more
+```bash
+npm run typecheck   # TypeScript sin errores
+npm run lint        # ESLint (expo lint)
+npm test            # tests de dominio y del motor de timer
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+## Estructura
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```
+src/app/                 Rutas de expo-router (tabs, actividades, medidas, rutinas, timer)
+src/components/          Componentes de UI reutilizables
+src/db/                  Cliente SQLite, migraciones, semilla y repositorios
+src/domain/              Tipos, cálculos, estadísticas y motor de timer
+src/store/               Estado global con Zustand
+src/theme/               Tema claro/oscuro y tokens de diseño
+src/utils/               Fechas, números y utilidades
+docs/screenshots/        Capturas para la documentación
+PLAN.md                  Plan de producto y arquitectura
+TODO.md                  Checklist de implementación por fases
+```
 
-## Join the community
+## Modelo de datos
 
-Join our community of developers creating universal apps.
+Tablas locales: `profile`, `exercises`, `routines`, `routine_exercises`, `activities`, `strength_sets` y `measurements`. Las migraciones se controlan con `PRAGMA user_version` y la biblioteca de ejercicios se carga la primera vez.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Próximas ideas
+
+- GPS y rutas con mapa para caminatas y senderismo.
+- Fotos de progreso.
+- Recordatorios locales y notificaciones con la pantalla bloqueada.
+- Importación de backups, exportación CSV.
+- Integración con Google Fit / Health Connect.
+- Build de producción y publicación en Play Store.
+
+## Estado
+
+Versión **1.0.0** — funcionalidades principales implementadas y verificadas en emulador Android. Repositorio: [MatiasSpacech/RutinaDiaria](https://github.com/MatiasSpacech/RutinaDiaria).
