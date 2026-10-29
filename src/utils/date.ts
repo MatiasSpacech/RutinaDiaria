@@ -24,6 +24,10 @@ export function todayISODate(): string {
   return toISODate(new Date());
 }
 
+export function toLocalDateTime(date: Date, now = new Date()): string {
+  return `${format(date, 'yyyy-MM-dd')}T${format(now, 'HH:mm:ss')}`;
+}
+
 export function formatDate(iso: string, pattern = "d 'de' MMM 'de' yyyy"): string {
   const date = parseDateSafe(iso);
   if (!date) return '—';

@@ -49,15 +49,15 @@ Lista detallada de implementación. Se marca cada punto al completarlo.
 
 ## Fase 4 — Actividades
 
-- [ ] Historial de actividades con filtros por tipo y fecha.
-- [ ] Formulario de caminata/senderismo/cardio con distancia, desnivel, duración, terreno, RPE y notas.
-- [ ] Cálculo de ritmo y velocidad en el detalle.
-- [ ] Editor de rutinas de fuerza con ejercicios objetivo.
-- [ ] Flujo de sesión de fuerza: elegir rutina o sesión libre, agregar ejercicios y series (reps, peso, RPE).
-- [ ] Cálculo de volumen y detección de récord personal.
-- [ ] Detalle de actividad con edición y borrado.
-- [ ] Verificar typecheck, lint y pruebas manuales.
-- [ ] Commit y push de la fase.
+- [x] Historial de actividades con filtros por tipo y fecha.
+- [x] Formulario de caminata/senderismo/cardio con distancia, desnivel, duración, terreno, RPE y notas.
+- [x] Cálculo de ritmo y velocidad en el detalle.
+- [x] Editor de rutinas de fuerza con ejercicios objetivo.
+- [x] Flujo de sesión de fuerza: elegir rutina o sesión libre, agregar ejercicios y series (reps, peso, RPE).
+- [x] Cálculo de volumen de la sesión.
+- [x] Detalle de actividad con edición y borrado.
+- [x] Verificar typecheck, lint y pruebas manuales.
+- [x] Commit y push de la fase.
 
 ## Fase 5 — Rutinas por tiempo y timer
 

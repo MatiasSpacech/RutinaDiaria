@@ -34,6 +34,7 @@ export const muscleGroupLabels: Record<string, string> = {
   cardio: 'Cardio',
   'cuerpo-completo': 'Cuerpo completo',
   movilidad: 'Movilidad',
+  otro: 'Otro',
 };
 
 export const sexLabels: Record<Sex, string> = {

@@ -198,6 +198,31 @@ export function miToKm(mi: number): number {
   return mi * 1.609344;
 }
 
+export function mToFt(meters: number): number {
+  return meters * 3.280839895;
+}
+
+export function ftToM(feet: number): number {
+  return feet / 3.280839895;
+}
+
+export function elevationUnit(unitSystem: UnitSystem): string {
+  return unitSystem === 'metric' ? 'm' : 'ft';
+}
+
+export function formatElevation(
+  elevationM: number | null,
+  unitSystem: UnitSystem,
+): string {
+  if (elevationM === null) return '—';
+  const value = unitSystem === 'metric' ? elevationM : mToFt(elevationM);
+  return Math.round(value).toString();
+}
+
+export function volumeUnit(unitSystem: UnitSystem): string {
+  return unitSystem === 'metric' ? 'kg' : 'lb';
+}
+
 export function formatWeight(weightKg: number | null, unitSystem: UnitSystem): string {
   if (weightKg === null) return '—';
   const value = unitSystem === 'metric' ? weightKg : kgToLb(weightKg);
