@@ -1,4 +1,4 @@
-import DateTimePicker, { type DateTimePickerEvent } from '@react-native-community/datetimepicker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { format, parseISO, subYears } from 'date-fns';
 import { es } from 'date-fns/locale';
@@ -66,13 +66,6 @@ export function ProfileForm({ initialProfile, submitLabel, onSubmit }: ProfileFo
   const age = birthDate ? calculateAge(format(birthDate, 'yyyy-MM-dd')) : null;
   const weightUnit = unitSystem === 'metric' ? 'kg' : 'lb';
   const heightUnit = unitSystem === 'metric' ? 'cm' : 'in';
-
-  function handleDateChange(event: DateTimePickerEvent, selected?: Date) {
-    setShowDatePicker(false);
-    if (event.type === 'set' && selected) {
-      setBirthDate(selected);
-    }
-  }
 
   function handleSubmit() {
     const heightValue = parseDecimal(height);
@@ -153,7 +146,11 @@ export function ProfileForm({ initialProfile, submitLabel, onSubmit }: ProfileFo
             mode="date"
             display="default"
             maximumDate={new Date()}
-            onChange={handleDateChange}
+            onValueChange={(_, selected) => {
+              setShowDatePicker(false);
+              setBirthDate(selected);
+            }}
+            onDismiss={() => setShowDatePicker(false)}
           />
         ) : null}
       </View>

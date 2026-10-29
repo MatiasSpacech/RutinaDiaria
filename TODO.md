@@ -76,14 +76,14 @@ Lista detallada de implementación. Se marca cada punto al completarlo.
 
 ## Fase 6 — Inicio y progreso
 
-- [ ] Dashboard con resumen semanal, racha, último peso/IMC, meta de peso y actividad reciente.
-- [ ] Estadísticas semanales de sesiones, minutos, volumen, distancia y desnivel.
-- [ ] Gráfico de barras de actividad semanal.
-- [ ] Heatmap de actividad tipo calendario.
-- [ ] Distribución por tipo de actividad.
-- [ ] Récords personales por ejercicio con 1RM estimado.
-- [ ] Verificar typecheck, lint y pruebas manuales.
-- [ ] Commit y push de la fase.
+- [x] Dashboard con resumen semanal, racha, último peso/IMC, meta de peso y actividad reciente.
+- [x] Estadísticas semanales de sesiones, minutos, volumen, distancia y desnivel.
+- [x] Gráfico de barras de actividad semanal.
+- [x] Heatmap de actividad tipo calendario.
+- [x] Distribución por tipo de actividad.
+- [x] Récords personales por ejercicio con 1RM estimado.
+- [x] Verificar typecheck, lint y pruebas manuales.
+- [x] Commit y push de la fase.
 
 ## Fase 7 — Ajustes, exportación y QA
 

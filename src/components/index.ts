@@ -1,3 +1,5 @@
+export { ActivityBarChart } from './ActivityBarChart';
+export { ActivityHeatmap } from './ActivityHeatmap';
 export { AppText } from './AppText';
 export { Button } from './Button';
 export { Card } from './Card';

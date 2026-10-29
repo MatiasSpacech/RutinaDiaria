@@ -1,4 +1,4 @@
-import DateTimePicker, { type DateTimePickerEvent } from '@react-native-community/datetimepicker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { format, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
@@ -210,11 +210,6 @@ export default function ActivityFormScreen() {
     }
   }
 
-  function handleDateChange(event: DateTimePickerEvent, selected?: Date) {
-    setShowDatePicker(false);
-    if (event.type === 'set' && selected) setActivityDate(selected);
-  }
-
   function applyRoutine(nextRoutineId: number | null) {
     const routine = nextRoutineId ? getRoutine(nextRoutineId) : null;
     const apply = () => {
@@ -399,7 +394,11 @@ export default function ActivityFormScreen() {
                   mode="date"
                   display="default"
                   maximumDate={new Date()}
-                  onChange={handleDateChange}
+                  onValueChange={(_, selected) => {
+                    setShowDatePicker(false);
+                    setActivityDate(selected);
+                  }}
+                  onDismiss={() => setShowDatePicker(false)}
                 />
               ) : null}
             </View>

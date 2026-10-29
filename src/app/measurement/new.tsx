@@ -1,4 +1,4 @@
-import DateTimePicker, { type DateTimePickerEvent } from '@react-native-community/datetimepicker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { format, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
@@ -78,11 +78,6 @@ export default function MeasurementFormScreen() {
         : lbToKg(weightDisplayValue);
   const bmi = calculateBmi(weightKg, profile?.heightCm ?? null);
   const bmiClassification = classifyBmi(bmi);
-
-  function handleDateChange(event: DateTimePickerEvent, selected?: Date) {
-    setShowDatePicker(false);
-    if (event.type === 'set' && selected) setMeasuredAt(selected);
-  }
 
   function parseLength(value: string): number | null {
     const parsed = parseDecimal(value);
@@ -207,7 +202,11 @@ export default function MeasurementFormScreen() {
               mode="date"
               display="default"
               maximumDate={new Date()}
-              onChange={handleDateChange}
+              onValueChange={(_, selected) => {
+                setShowDatePicker(false);
+                setMeasuredAt(selected);
+              }}
+              onDismiss={() => setShowDatePicker(false)}
             />
           ) : null}
         </View>
