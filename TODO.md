@@ -24,16 +24,16 @@ Lista detallada de implementación. Se marca cada punto al completarlo.
 
 ## Fase 2 — Datos y dominio
 
-- [ ] Crear cliente SQLite y sistema de migraciones con `PRAGMA user_version`.
-- [ ] Definir tablas: profile, exercises, routines, routine_exercises, activities, strength_sets, measurements.
-- [ ] Crear repositorios por entidad.
-- [ ] Crear semilla de ejercicios comunes por grupo muscular.
-- [ ] Implementar cálculos: IMC y clasificación OMS, ritmo, velocidad, volumen, 1RM Epley, rachas, agregados y variación.
-- [ ] Implementar conversión de unidades métrico/imperial.
-- [ ] Configurar tests (jest-expo) y cubrir cálculos de dominio.
-- [ ] Integrar inicialización de BD y migraciones al arranque de la app.
-- [ ] Verificar typecheck, lint y tests.
-- [ ] Commit y push de la fase.
+- [x] Crear cliente SQLite y sistema de migraciones con `PRAGMA user_version`.
+- [x] Definir tablas: profile, exercises, routines, routine_exercises, activities, strength_sets, measurements.
+- [x] Crear repositorios por entidad.
+- [x] Crear semilla de ejercicios comunes por grupo muscular.
+- [x] Implementar cálculos: IMC y clasificación OMS, ritmo, velocidad, volumen, 1RM Epley, rachas, agregados y variación.
+- [x] Implementar conversión de unidades métrico/imperial.
+- [x] Configurar tests (jest-expo) y cubrir cálculos de dominio.
+- [x] Integrar inicialización de BD y migraciones al arranque de la app.
+- [x] Verificar typecheck, lint y tests.
+- [x] Commit y push de la fase.
 
 ## Fase 3 — Perfil, onboarding y mediciones
 
