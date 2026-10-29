@@ -111,11 +111,21 @@ const migrationOne = `
   CREATE INDEX IF NOT EXISTS idx_measurements_measured_at ON measurements(measured_at DESC);
 `;
 
+const migrationTwo = `
+  ALTER TABLE profile ADD COLUMN onboarded INTEGER NOT NULL DEFAULT 0;
+`;
+
 const migrations: Migration[] = [
   {
     version: 1,
     up: (db) => {
       db.execSync(migrationOne);
+    },
+  },
+  {
+    version: 2,
+    up: (db) => {
+      db.execSync(migrationTwo);
     },
   },
 ];

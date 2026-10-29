@@ -1,8 +1,9 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Tabs } from 'expo-router';
+import { Redirect, Tabs } from 'expo-router';
 import type { ComponentProps } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { useAppStore } from '@/store/app';
 import { useTheme } from '@/theme/useTheme';
 
 type IconName = ComponentProps<typeof MaterialCommunityIcons>['name'];
@@ -10,6 +11,11 @@ type IconName = ComponentProps<typeof MaterialCommunityIcons>['name'];
 export default function TabsLayout() {
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
+  const profile = useAppStore((state) => state.profile);
+
+  if (!profile?.onboarded) {
+    return <Redirect href="/onboarding" />;
+  }
 
   function tabIcon(name: IconName, focusedName: IconName) {
     return function TabIcon({ focused }: { focused: boolean }) {

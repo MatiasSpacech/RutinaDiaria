@@ -37,15 +37,15 @@ Lista detallada de implementación. Se marca cada punto al completarlo.
 
 ## Fase 3 — Perfil, onboarding y mediciones
 
-- [ ] Pantalla de onboarding con datos personales y objetivos.
-- [ ] Guardar perfil y detectar primer inicio.
-- [ ] CRUD de mediciones corporales.
-- [ ] Cálculo y clasificación de IMC en la ficha de medida.
-- [ ] Gráficos de peso con objetivo, IMC y medidas seleccionables.
-- [ ] Selector de rango temporal (1M, 3M, 6M, 1A, todo) y variación/tendencia.
-- [ ] Pantalla de ajustes básicos de perfil.
-- [ ] Verificar typecheck, lint y pruebas manuales.
-- [ ] Commit y push de la fase.
+- [x] Pantalla de onboarding con datos personales y objetivos.
+- [x] Guardar perfil y detectar primer inicio.
+- [x] CRUD de mediciones corporales.
+- [x] Cálculo y clasificación de IMC en la ficha de medida.
+- [x] Gráficos de peso con objetivo, IMC y medidas seleccionables.
+- [x] Selector de rango temporal (1M, 3M, 6M, 1A, todo) y variación/tendencia.
+- [x] Pantalla de ajustes básicos de perfil.
+- [x] Verificar typecheck, lint y pruebas manuales.
+- [x] Commit y push de la fase.
 
 ## Fase 4 — Actividades
 

@@ -1,9 +1,11 @@
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import { router } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
 
 import {
   AppText,
+  Button,
   Card,
   Divider,
   PageHeader,
@@ -11,6 +13,9 @@ import {
   SectionHeader,
   SegmentedControl,
 } from '@/components';
+import { updateProfile } from '@/db/repositories/profile';
+import { calculateAge, cmToIn, formatWeight, weightUnit } from '@/domain/calculations';
+import { useAppStore } from '@/store/app';
 import { useSettingsStore, type ThemePreference, type UnitSystem } from '@/store/settings';
 import { spacing } from '@/theme';
 import { useTheme } from '@/theme/useTheme';
@@ -32,10 +37,75 @@ export default function SettingsScreen() {
   const unitSystem = useSettingsStore((state) => state.unitSystem);
   const setThemePreference = useSettingsStore((state) => state.setThemePreference);
   const setUnitSystem = useSettingsStore((state) => state.setUnitSystem);
+  const profile = useAppStore((state) => state.profile);
+  const setProfile = useAppStore((state) => state.setProfile);
+
+  function handleThemeChange(preference: ThemePreference) {
+    setThemePreference(preference);
+    const updated = updateProfile({ themePreference: preference });
+    setProfile(updated);
+  }
+
+  function handleUnitChange(system: UnitSystem) {
+    setUnitSystem(system);
+    const updated = updateProfile({ unitSystem: system });
+    setProfile(updated);
+  }
+
+  const age = profile ? calculateAge(profile.birthDate) : null;
+  const height =
+    profile?.heightCm === null || profile?.heightCm === undefined
+      ? null
+      : unitSystem === 'metric'
+        ? profile.heightCm
+        : cmToIn(profile.heightCm);
+  const goalWeight =
+    profile?.goalWeightKg === null || profile?.goalWeightKg === undefined
+      ? null
+      : formatWeight(profile.goalWeightKg, unitSystem);
 
   return (
     <Screen>
       <PageHeader title="Ajustes" onBack={() => router.back()} />
+
+      <View style={styles.section}>
+        <SectionHeader title="Perfil" />
+        <Card style={styles.card}>
+          <View style={styles.profileRow}>
+            <View style={[styles.avatar, { backgroundColor: colors.primarySoft }]}>
+              <MaterialCommunityIcons name="account" size={28} color={colors.primary} />
+            </View>
+            <View style={styles.profileText}>
+              <AppText variant="subtitle">{profile?.name || 'Sin nombre'}</AppText>
+              <AppText variant="caption" color="textSecondary">
+                {[
+                  age !== null ? `${age} años` : null,
+                  height !== null
+                    ? `${height.toFixed(1)} ${unitSystem === 'metric' ? 'cm' : 'in'}`
+                    : null,
+                  goalWeight
+                    ? `Objetivo ${goalWeight} ${weightUnit(unitSystem)}`
+                    : null,
+                ]
+                  .filter(Boolean)
+                  .join(' · ') || 'Completá tus datos personales'}
+              </AppText>
+            </View>
+          </View>
+          <Divider />
+          <View style={styles.profileFooter}>
+            <AppText variant="caption" color="textSecondary">
+              Meta semanal: {profile?.weeklyGoal ?? 3} sesiones
+            </AppText>
+            <Button
+              label="Editar perfil"
+              variant="secondary"
+              fullWidth={false}
+              onPress={() => router.push('/onboarding?edit=1')}
+            />
+          </View>
+        </Card>
+      </View>
 
       <View style={styles.section}>
         <SectionHeader title="Apariencia" />
@@ -43,7 +113,7 @@ export default function SettingsScreen() {
           <SegmentedControl
             options={themeOptions}
             value={themePreference}
-            onChange={setThemePreference}
+            onChange={handleThemeChange}
           />
           <AppText variant="caption" color="textSecondary">
             El tema del sistema se adapta automáticamente al modo claro u oscuro del teléfono.
@@ -57,7 +127,7 @@ export default function SettingsScreen() {
           <SegmentedControl
             options={unitOptions}
             value={unitSystem}
-            onChange={setUnitSystem}
+            onChange={handleUnitChange}
           />
           <AppText variant="caption" color="textSecondary">
             {unitSystem === 'metric'
@@ -106,6 +176,13 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: 2,
   },
+  avatar: {
+    alignItems: 'center',
+    borderRadius: 999,
+    height: 52,
+    justifyContent: 'center',
+    width: 52,
+  },
   badge: {
     borderRadius: 999,
     paddingHorizontal: spacing.md,
@@ -113,6 +190,23 @@ const styles = StyleSheet.create({
   },
   card: {
     gap: spacing.md,
+  },
+  profileFooter: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: spacing.md,
+    justifyContent: 'space-between',
+    padding: spacing.lg,
+  },
+  profileRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: spacing.md,
+    padding: spacing.lg,
+  },
+  profileText: {
+    flex: 1,
+    gap: 2,
   },
   section: {
     gap: spacing.md,

@@ -12,6 +12,7 @@ type ProfileRow = {
   weekly_goal: number;
   unit_system: Profile['unitSystem'];
   theme_preference: Profile['themePreference'];
+  onboarded: number;
   created_at: string;
   updated_at: string;
 };
@@ -28,6 +29,7 @@ function mapProfile(row: ProfileRow): Profile {
     weeklyGoal: row.weekly_goal,
     unitSystem: row.unit_system,
     themePreference: row.theme_preference,
+    onboarded: row.onboarded === 1,
     createdAt: row.created_at,
     updatedAt: row.updated_at,
   };
@@ -56,6 +58,7 @@ export function updateProfile(update: ProfileUpdate): Profile {
       weekly_goal = ?,
       unit_system = ?,
       theme_preference = ?,
+      onboarded = ?,
       updated_at = ?
     WHERE id = 1`,
     merged.name,
@@ -67,6 +70,7 @@ export function updateProfile(update: ProfileUpdate): Profile {
     merged.weeklyGoal,
     merged.unitSystem,
     merged.themePreference,
+    merged.onboarded ? 1 : 0,
     merged.updatedAt,
   );
 

@@ -66,6 +66,7 @@ export default function RootLayout() {
           headerShown: false,
         }}>
         <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="onboarding" options={{ animation: 'fade' }} />
         <Stack.Screen name="settings" />
       </Stack>
     </ThemeProvider>

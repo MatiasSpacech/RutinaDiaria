@@ -4,6 +4,7 @@ export { Card } from './Card';
 export { Chip } from './Chip';
 export { Divider } from './Divider';
 export { EmptyState } from './EmptyState';
+export { EvolutionChart, type EvolutionPoint } from './EvolutionChart';
 export { FAB } from './FAB';
 export { IconButton } from './IconButton';
 export { MetricCard } from './MetricCard';

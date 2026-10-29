@@ -16,6 +16,7 @@ export type Profile = {
   weeklyGoal: number;
   unitSystem: UnitSystem;
   themePreference: ThemePreference;
+  onboarded: boolean;
   createdAt: string;
   updatedAt: string;
 };
@@ -32,6 +33,7 @@ export type ProfileUpdate = Partial<
     | 'weeklyGoal'
     | 'unitSystem'
     | 'themePreference'
+    | 'onboarded'
   >
 >;
 
