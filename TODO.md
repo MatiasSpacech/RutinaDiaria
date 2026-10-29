@@ -4,23 +4,23 @@ Lista detallada de implementación. Se marca cada punto al completarlo.
 
 ## Fase 0 — Plan y repositorio
 
-- [ ] Guardar `PLAN.md` con alcance, arquitectura, modelo de datos y fases.
-- [ ] Guardar `TODO.md` con los pasos detallados.
-- [ ] Inicializar repositorio git local.
-- [ ] Crear repositorio público `RutinaDiaria` en GitHub.
-- [ ] Commit inicial con el plan y push.
+- [x] Guardar `PLAN.md` con alcance, arquitectura, modelo de datos y fases.
+- [x] Guardar `TODO.md` con los pasos detallados.
+- [x] Inicializar repositorio git local.
+- [x] Crear repositorio público `RutinaDiaria` en GitHub.
+- [x] Commit inicial con el plan y push.
 
 ## Fase 1 — Scaffold y diseño base
 
-- [ ] Crear proyecto Expo SDK 58 con TypeScript y expo-router.
-- [ ] Configurar `app.json`: nombre RutinaDiaria, slug, paquete Android, tema oscuro.
-- [ ] Instalar dependencias: expo-sqlite, zustand, date-fns, react-native-gifted-charts, react-native-svg, expo-haptics, expo-keep-awake, expo-audio.
-- [ ] Crear tokens de tema (colores claro/oscuro, espaciados, radios, tipografía).
-- [ ] Crear componentes base: Screen, Card, Button, Chip, MetricCard, SectionHeader, EmptyState, TextField, FAB, ProgressBar.
-- [ ] Configurar navegación por pestañas: Inicio, Actividades, Medidas, Progreso; ajustes desde el header.
-- [ ] Configurar estado global inicial con Zustand.
-- [ ] Verificar typecheck y lint.
-- [ ] Commit y push de la fase.
+- [x] Crear proyecto Expo SDK 58 con TypeScript y expo-router.
+- [x] Configurar `app.json`: nombre RutinaDiaria, slug, paquete Android, tema oscuro.
+- [x] Instalar dependencias: expo-sqlite, zustand, date-fns, react-native-gifted-charts, react-native-svg, expo-haptics, expo-keep-awake, expo-audio.
+- [x] Crear tokens de tema (colores claro/oscuro, espaciados, radios, tipografía).
+- [x] Crear componentes base: Screen, Card, Button, Chip, MetricCard, SectionHeader, EmptyState, TextField, FAB, ProgressBar.
+- [x] Configurar navegación por pestañas: Inicio, Actividades, Medidas, Progreso; ajustes desde el header.
+- [x] Configurar estado global inicial con Zustand.
+- [x] Verificar typecheck y lint.
+- [x] Commit y push de la fase.
 
 ## Fase 2 — Datos y dominio
 
