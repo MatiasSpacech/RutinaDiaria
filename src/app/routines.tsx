@@ -124,12 +124,21 @@ export default function RoutinesScreen() {
                     style={styles.actionButton}
                   />
                 ) : (
-                  <View style={[styles.timeBadge, { backgroundColor: colors.backgroundAlt }]}>
-                    <MaterialCommunityIcons name="timer-outline" size={16} color={colors.textMuted} />
-                    <AppText variant="caption" color="textMuted">
-                      Timer en la próxima fase
-                    </AppText>
-                  </View>
+                  <Button
+                    label="Iniciar timer"
+                    onPress={() =>
+                      router.push({ pathname: '/timer/[id]', params: { id: String(routine.id) } })
+                    }
+                    icon={
+                      <MaterialCommunityIcons
+                        name="timer-play-outline"
+                        size={18}
+                        color={colors.onPrimary}
+                      />
+                    }
+                    fullWidth={false}
+                    style={styles.actionButton}
+                  />
                 )}
                 <Pressable
                   onPress={() =>
@@ -197,15 +206,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     gap: spacing.sm,
-  },
-  timeBadge: {
-    alignItems: 'center',
-    borderRadius: radius.md,
-    flex: 1,
-    flexDirection: 'row',
-    gap: spacing.xs,
-    justifyContent: 'center',
-    minHeight: 48,
-    paddingHorizontal: spacing.md,
   },
 });

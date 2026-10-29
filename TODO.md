@@ -61,18 +61,18 @@ Lista detallada de implementación. Se marca cada punto al completarlo.
 
 ## Fase 5 — Rutinas por tiempo y timer
 
-- [ ] Extender rutinas con modo tiempo: rondas, preparación y descansos.
-- [ ] Editor de rutina por tiempo con duración y descanso por ejercicio.
-- [ ] Implementar motor de timer sin deriva basado en timestamps.
-- [ ] Tests del motor: secuencia de fases, rondas, pausa, saltar, +15 s y fin.
-- [ ] Runner full screen: anillo de progreso, ejercicio actual/próximo, ronda y tiempo total.
-- [ ] Controles: iniciar/pausar, saltar fase, +15 s y terminar con confirmación.
-- [ ] Pantalla encendida y pausa automática al pasar a segundo plano.
-- [ ] Avisos con pitidos en últimos 3 s y cambios de fase.
-- [ ] Vibración en transiciones.
-- [ ] Resumen final y guardado automático de la sesión.
-- [ ] Verificar typecheck, lint y tests.
-- [ ] Commit y push de la fase.
+- [x] Extender rutinas con modo tiempo: rondas, preparación y descansos.
+- [x] Editor de rutina por tiempo con duración y descanso por ejercicio.
+- [x] Implementar motor de timer sin deriva basado en timestamps.
+- [x] Tests del motor: secuencia de fases, rondas, pausa, saltar, +15 s y fin.
+- [x] Runner full screen: anillo de progreso, ejercicio actual/próximo, ronda y tiempo total.
+- [x] Controles: iniciar/pausar, saltar fase, +15 s y terminar con confirmación.
+- [x] Pantalla encendida y pausa automática al pasar a segundo plano.
+- [x] Avisos con pitidos en últimos 3 s y cambios de fase.
+- [x] Vibración en transiciones.
+- [x] Resumen final y guardado automático de la sesión.
+- [x] Verificar typecheck, lint y tests.
+- [x] Commit y push de la fase.
 
 ## Fase 6 — Inicio y progreso
 

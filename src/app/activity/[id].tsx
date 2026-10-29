@@ -22,6 +22,7 @@ import {
   formatDuration,
   formatElevation,
   formatPace,
+  formatTimerDuration,
   formatWeight,
   kgToLb,
   weightUnit,
@@ -77,6 +78,22 @@ export default function ActivityDetailScreen() {
   const isStrength = activity.type === 'strength';
   const showDistance = activity.distanceKm !== null;
 
+  let timerDetails: {
+    timer?: boolean;
+    plannedSeconds?: number;
+    elapsedSeconds?: number;
+    rounds?: number;
+    exercises?: string[];
+  } | null = null;
+  if (activity.details) {
+    try {
+      timerDetails = JSON.parse(activity.details);
+    } catch {
+      timerDetails = null;
+    }
+  }
+  const isTimedSession = isStrength && Boolean(timerDetails?.timer);
+
   const groups = new Map<string, typeof activity.sets>();
   for (const set of activity.sets) {
     const current = groups.get(set.exerciseName) ?? [];
@@ -127,12 +144,23 @@ export default function ActivityDetailScreen() {
 
       <View style={styles.metricsGrid}>
         <MetricCard
-          label="Duración"
-          value={formatDuration(activity.durationMinutes)}
+          label={isTimedSession ? 'Tiempo' : 'Duración'}
+          value={
+            isTimedSession && timerDetails?.elapsedSeconds
+              ? formatTimerDuration(timerDetails.elapsedSeconds)
+              : formatDuration(activity.durationMinutes)
+          }
           icon="clock-outline"
           tone="info"
         />
-        {isStrength ? (
+        {isTimedSession ? (
+          <MetricCard
+            label="Rondas"
+            value={`${activity.roundsCompleted ?? 0}/${timerDetails?.rounds ?? '—'}`}
+            icon="repeat"
+            tone="success"
+          />
+        ) : isStrength ? (
           <MetricCard
             label="Volumen"
             value={Math.round(volumeDisplay).toLocaleString('es-AR')}
@@ -174,7 +202,50 @@ export default function ActivityDetailScreen() {
         </View>
       ) : null}
 
-      {isStrength ? (
+      {isTimedSession ? (
+        <View style={styles.section}>
+          <SectionHeader title="Sesión por tiempo" />
+          <Card style={styles.timedCard}>
+            <View style={styles.timedHeader}>
+              <MaterialCommunityIcons name="timer-check-outline" size={24} color={colors.primary} />
+              <View style={styles.timedText}>
+                <AppText variant="bodyStrong">Circuito completado</AppText>
+                <AppText variant="caption" color="textSecondary">
+                  {activity.roundsCompleted ?? 0} de {timerDetails?.rounds ?? 0} rondas ·{' '}
+                  {timerDetails?.exercises?.length ?? 0}{' '}
+                  {(timerDetails?.exercises?.length ?? 0) === 1 ? 'ejercicio' : 'ejercicios'} por
+                  ronda
+                </AppText>
+              </View>
+              {activity.rpe ? (
+                <View style={[styles.rpeBadge, { backgroundColor: colors.warningSoft }]}>
+                  <AppText variant="caption" style={{ color: colors.warning }}>
+                    RPE {activity.rpe}
+                  </AppText>
+                </View>
+              ) : null}
+            </View>
+            {timerDetails?.exercises && timerDetails.exercises.length > 0 ? (
+              <View style={styles.timedExercises}>
+                {timerDetails.exercises.map((exercise: string) => (
+                  <View key={exercise} style={styles.timedExerciseRow}>
+                    <MaterialCommunityIcons
+                      name="dumbbell"
+                      size={14}
+                      color={colors.textMuted}
+                    />
+                    <AppText variant="caption" color="textSecondary">
+                      {exercise}
+                    </AppText>
+                  </View>
+                ))}
+              </View>
+            ) : null}
+          </Card>
+        </View>
+      ) : null}
+
+      {isStrength && !isTimedSession ? (
         <View style={styles.section}>
           <SectionHeader title="Series" />
           <Card style={styles.setsCard}>
@@ -306,6 +377,11 @@ const styles = StyleSheet.create({
   setIndex: {
     width: 18,
   },
+  rpeBadge: {
+    borderRadius: 999,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: spacing.xs,
+  },
   setRow: {
     alignItems: 'center',
     flexDirection: 'row',
@@ -313,6 +389,26 @@ const styles = StyleSheet.create({
   },
   setsCard: {
     gap: spacing.sm,
+  },
+  timedCard: {
+    gap: spacing.md,
+  },
+  timedExerciseRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: spacing.sm,
+  },
+  timedExercises: {
+    gap: spacing.sm,
+  },
+  timedHeader: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: spacing.md,
+  },
+  timedText: {
+    flex: 1,
+    gap: 2,
   },
   typeBadge: {
     alignItems: 'center',
